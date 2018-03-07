@@ -13,7 +13,7 @@ class Slot:
 
     def __str__(self):
         if(self.status.isOccupied):
-            return "X"
+            return str(self.status.Player[0])
         else:
             return str(self.Row)+str(self.Column)
 

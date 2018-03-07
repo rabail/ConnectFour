@@ -1,6 +1,7 @@
-from board import C4Board
-from slot import Slot
-from engine import Engine
+from board import C4Board as C4Board
+from slot import Slot as Slot
+from engine import Engine as Engine
+import refree
 
 class Game:
     def __init__(self):
@@ -14,13 +15,13 @@ class Game:
 
     def get_players(self):
         while(self.player1 == self.player2):
-            self.player1 = input("Player 1 : ")
-            self.player2 = input("Player 2 : ")
+            self.player1 = raw_input("Player 1 : ")
+            self.player2 = raw_input("Player 2 : ")
 
             if(self.player1 == self.player2):
-                print("Please enter the different players")
+                print 'Please enter the different players'
             else:
-                print("Lets start the game!!!")
+                print 'Lets start the game!!!'
 
 
     def startGame(self):
@@ -29,12 +30,12 @@ class Game:
             self.board.layout()
             p = self.player1 if turnNo%2 == 0 else self.player2
             position = input('select a position' + p + ' : ')
-            engine = Engine()
-            if(engine.dropBall(self.board, position, p )):
+            engine = Engine(self.board)
+            if(engine.dropBall(str(position), p )):
                 turnNo+=1
                 continue
             else:
-                print('oops, occupied!!! try again')
+                print 'oops, occupied!!! try again'
                 continue
 
 

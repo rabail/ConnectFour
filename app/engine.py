@@ -1,14 +1,34 @@
 from board import C4Board
 from slot import Slot
+import refree
 
 class Engine:
-    def dropBall(self, board, positionString, player):
-        print(positionString[0])
-        print(positionString[1])
-        selectedSlot = list(filter(lambda x: str(x.Row) == positionString[0] and str(x.Column) == positionString[1], board.CSlots))
-        if selectedSlot[0].status.isOccupied:
-            return False
-        else:
-            selectedSlot[0].setOccupied(player)
+    def __init__(self, board):
+        self.board = board
+
+    def dropBall(self, positionString, player):
+        print positionString
+        """print str(positionString[0])"""
+        """print str(positionString[1])"""
+        selectedSlot = list(filter(lambda x: str(x.Row) == str(positionString[0]) and str(x.Column) == str(positionString[1]), self.board.CSlots))[0]
+        select = self.pushBall(selectedSlot, player)
+        if (select!=None):
+            refree.refree(self.board,select)
             return True
+        else:
+            return False
         
+    def pushBall(self, selectedSlot, player):
+        if selectedSlot.getStatus():
+            return None
+
+        if selectedSlot.Row + 1 <= self.board.Row:
+            newSlot = list(filter(lambda x: str(x.Row) == str(selectedSlot.Row + 1) and str(x.Column) == str(selectedSlot.Column), self.board.CSlots))[0]
+            if(newSlot.getStatus()):
+                selectedSlot.setOccupied(player)
+                return selectedSlot
+            else:
+                return self.pushBall(newSlot,player)
+        else:
+            selectedSlot.setOccupied(player)
+            return selectedSlot

@@ -14,7 +14,7 @@ class C4Board:
     def layout(self):
         for s in range(0, len(self.CSlots)):
             slot = self.CSlots[s]
-            stat = str(slot) + (' ' if slot.Column % self.Column > 0 else '\n')
-            print(stat, end=" ")
+            stat = str(slot) + ('\t\t' if slot.Column % self.Column > 0 else '\n')
+            print stat,
 
     
