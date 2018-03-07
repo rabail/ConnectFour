@@ -15,6 +15,6 @@ class C4Board:
         for s in range(0, len(self.CSlots)):
             slot = self.CSlots[s]
             stat = str(slot) + (' ' if slot.Column % self.Column > 0 else '\n')
-            print stat,
+            print(stat, end=" ")
 
     
